@@ -1,3 +1,8 @@
+#Ask user for their calories for breakfast, lunch, dinner, and snacks in between meals
+#Ask user how many calories did user burn from exercising and their bmr 
+#Calculates user lbs. and says how much they will gain, lose, or stay the same. 
+
+
 class Diet:
     def __init__(self, breakfast_calories, lunch_calories, dinner_calories, snack_calories, exercise, bmr):
         self.breakfast_calories = breakfast_calories
