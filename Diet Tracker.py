@@ -31,4 +31,4 @@ if weekly_deficit > 0:
 elif weekly_deficit == 0:
     print("Your weight will stay the same this week. ")
 else:
-    print(f"You've gain {round(-1 * weekly_deficit/ 3600, 2)} lbs. this week. ")
+    print(f"You've gained {round(-1 * weekly_deficit/ 3600, 2)} lbs. this week. ")
