@@ -1,13 +1,17 @@
-import Step from "../src/components/steps"
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PatientDashboard from "./containers/PatientDashboard";
+import PatientDetails from "./containers/PatientDetails";
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-      <Step />
-        
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<PatientDashboard />} />
+        <Route path="/patients/:id" element={<PatientDetails />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

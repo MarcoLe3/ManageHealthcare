@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "age": 45,
+    "gender": "Male",
+    "weight": 180,
+    "height": 70,
+    "notes": "Complain of fatigue and dizziness.",
+    "historyConditions": ["Diabetes", "Hypertension"],
+    "pastMedications": ["Metformin", "Lisinopril"]
+  },
+  {
+    "id": 2,
+    "name": "Barak Obama",
+    "age": 45,
+    "gender": "Male",
+    "weight": 180,
+    "height": 70,
+    "history conditions": ["Diabetes", "Hypertension"],
+    "past medication subscribe": ["Metformin", "Lisinopril"]
+  }
+]
