@@ -44,7 +44,7 @@ const PatientDashboard: React.FC = () => {
       >
         {selectedPatient && (
           <>
-            <h2 className="text-2xl font-semibold font-sans mb-6 self-center text-white">
+            <h2 className="text-l font-medium font-sans mb-6 self-center text-gray-400">
               {selectedPatient.name}
             </h2>
             <div className="flex-1">
@@ -56,7 +56,7 @@ const PatientDashboard: React.FC = () => {
 
       {/* Notes panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-1/3 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
+        className={`fixed top-0 right-0 h-full w-1/3 bg-[#1f1f21] transform transition-transform duration-300 ease-in-out z-40 ${
           showNotes ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -19,9 +19,9 @@ const PatientCard: React.FC<Props> = ({ patient, onClick }) => {
       />
 
       <div className="flex flex-col">
-        <h1 className="text-lg font-sans font-semibold">{patient.name}</h1>
-        <p>{patient.notes}</p>
-        <p className="text-gray-500">{patient["history conditions"]?.join(", ")}</p>
+        <h1 className="text-lg font-sans text-white font-semibold">{patient.name}</h1>
+        <p className="text-white">{patient.notes}</p>
+        <p className="text-gray-400">{patient["history conditions"]?.join(", ")}</p>
       </div>
     </div>
   );
