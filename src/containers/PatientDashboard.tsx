@@ -1,9 +1,14 @@
+// PatientDashboard.tsx
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Patient } from "../types/patient";
+import PatientCard from "../components/Patient";
+import PatientDetails from "../components/PatientDetails";
+import NotePad from "../components/Button/NoteButton"; // renamed for clarity
 
 const PatientDashboard: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+  const [showNotes, setShowNotes] = useState(false);
 
   useEffect(() => {
     fetch("/dummy.json")
@@ -13,17 +18,48 @@ const PatientDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6 flex flex-wrap gap-4">
-      {patients.map((patient) => (
-        <Link key={patient.id} to={`/patients/${patient.id}`}>
-          <div className="bg-black text-white border border-gray-300 rounded-lg p-6 w-80 cursor-pointer hover:bg-gray-800">
-            <h1 className="text-xl font-medium">{patient.name}</h1>
-            <p>Age: {patient.age}</p>
-            <p>Weight: {patient.weight}</p>
-            <p>Height: {patient.height}</p>
-          </div>
-        </Link>
-      ))}
+    <div className="flex gap-6 p-6 w-full h-screen">
+      {/* Left column: Patients list */}
+      <div className="w-1/3 flex flex-col gap-0">
+        {patients.map((patient, index) => (
+          <PatientCard
+            key={patient.id}
+            patient={patient}
+            isFirst={index === 0}
+            onClick={() => setSelectedPatient(patient)}
+          />
+        ))}
+      </div>
+
+      {/* Middle column: PatientDetails */}
+      <div
+        className={`p-6 transition-all duration-300 ${
+          showNotes ? "w-1/3" : "w-2/3"
+        }`}
+      >
+        {selectedPatient ? (
+          <PatientDetails key={selectedPatient.id} patient={selectedPatient} />
+        ) : (
+          <p>Select a patient to see details</p>
+        )}
+      </div>
+
+      {/* Right column: Notes */}
+      {showNotes && selectedPatient && (
+        <div className="w-1/3 p-6">
+          <NotePad patientId={selectedPatient.id} />
+        </div>
+      )}
+
+      {/* Floating button - always top right */}
+      {selectedPatient && (
+        <button
+          onClick={() => setShowNotes(!showNotes)}
+          className="fixed top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+        >
+          {showNotes ? "Close Notes" : "Open Notes"}
+        </button>
+      )}
     </div>
   );
 };

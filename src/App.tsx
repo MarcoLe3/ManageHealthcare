@@ -1,16 +1,16 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import PatientDashboard from "./containers/PatientDashboard";
-import PatientDetails from "./containers/PatientDetails";
+import PatientDetails from "./components/PatientDetails";
+import { Patient } from "./types/patient";
 
 const App: React.FC = () => {
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<PatientDashboard />} />
-        <Route path="/patients/:id" element={<PatientDetails />} />
-      </Routes>
-    </Router>
+    <div className="flex">
+      <PatientDashboard onSelectPatient={setSelectedPatient} />
+      {selectedPatient && <PatientDetails patient={selectedPatient} />}
+    </div>
   );
 };
 

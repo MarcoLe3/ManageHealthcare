@@ -3,19 +3,23 @@ import { Patient } from "../types/patient";
 
 interface Props {
   patient: Patient;
-  onClick: (patient: Patient) => void;
+  isFirst?: boolean;
+  onClick?: () => void;
 }
 
-const PatientCard: React.FC<Props> = ({ patient, onClick }) => {
+const PatientCard: React.FC<Props> = ({ patient, isFirst = false, onClick }) => {
+  const borderClasses = isFirst
+    ? "border-t border-b border-gray-400"
+    : "border-b border-gray-400";
+
   return (
     <div
-      className="bg-black text-white border border-gray-300 rounded-lg p-4 w-64 cursor-pointer hover:bg-gray-800"
-      onClick={() => onClick(patient)}
+      className={`${borderClasses} p-4 cursor-pointer font-inter`}
+      onClick={onClick}
     >
-      <h1 className="text-lg font-medium">{patient.name}</h1>
-      <p>Age: {patient.age}</p>
-      <p>Weight: {patient.weight} lbs</p>
-      <p>Height: {patient.height} in</p>
+      <h1 className="text-lg font-sans font-bold">{patient.name}</h1>
+      <p>{patient.notes}</p>
+      <p className="text-gray-500">{patient["history conditions"]?.join(", ")}</p>
     </div>
   );
 };

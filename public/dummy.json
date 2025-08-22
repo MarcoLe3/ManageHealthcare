@@ -7,7 +7,7 @@
     "weight": 180,
     "height": 70,
     "notes": "Complain of fatigue and dizziness.",
-    "historyConditions": ["Diabetes", "Hypertension"],
+    "history conditions": ["Diabetes", "Hypertension"],
     "pastMedications": ["Metformin", "Lisinopril"]
   },
   {
