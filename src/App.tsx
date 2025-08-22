@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PatientDashboard from "./containers/PatientDashboard";
-import PatientDetails from "./components/PatientDetails";
+import PatientDetails from "./components/PatientChat";
 import { Patient } from "./types/patient";
 
 const App: React.FC = () => {

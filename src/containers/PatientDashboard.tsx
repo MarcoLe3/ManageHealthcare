@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Patient } from "../types/patient";
 import PatientCard from "../components/Patient";
-import PatientDetails from "../components/PatientDetails";
-import NotePad from "../components/Button/NoteButton"; // renamed for clarity
+import PatientChat from "../components/PatientChat";
+import NotePad from "../components/Button/NoteButton";
 
 const PatientDashboard: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -18,44 +18,56 @@ const PatientDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex gap-6 p-6 w-full h-screen">
-      {/* Left column: Patients list */}
-      <div className="w-1/3 flex flex-col gap-0">
-        {patients.map((patient, index) => (
+    <div className="flex gap-6 p-6 w-full h-screen relative overflow-hidden">
+      <div className="w-1/5 flex flex-col gap-0">
+        <h2 className="text-3xl font-bold font-sans mb-6">Patients</h2>
+        {patients.map((patient) => (
           <PatientCard
             key={patient.id}
             patient={patient}
-            isFirst={index === 0}
-            onClick={() => setSelectedPatient(patient)}
+            onClick={() => {
+              setSelectedPatient(patient);
+              setShowNotes(false);
+            }}
           />
         ))}
       </div>
 
-      {/* Middle column: PatientDetails */}
       <div
-        className={`p-6 transition-all duration-300 ${
-          showNotes ? "w-1/3" : "w-2/3"
-        }`}
+        className={`transition-all duration-300 ${
+          showNotes ? "w-2/5" : "w-2/3"
+        } flex flex-col`}
       >
-        {selectedPatient ? (
-          <PatientDetails key={selectedPatient.id} patient={selectedPatient} />
-        ) : (
-          <p>Select a patient to see details</p>
+        {selectedPatient && (
+          <h2 className="text-3xl font-bold font-sans mb-6 self-center">
+            {selectedPatient.name}
+          </h2>
+        )}
+
+        {selectedPatient && (
+          <div className="flex-1">
+            <PatientChat key={selectedPatient.id} patient={selectedPatient} />
+          </div>
         )}
       </div>
 
-      {/* Right column: Notes */}
-      {showNotes && selectedPatient && (
-        <div className="w-1/3 p-6">
-          <NotePad patientId={selectedPatient.id} />
-        </div>
-      )}
 
-      {/* Floating button - always top right */}
+      <div
+        className={`fixed top-0 right-0 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          showNotes ? "translate-x-0 w-1/3" : "translate-x-full w-1/3"
+        }`}
+      >
+        {selectedPatient && (
+          <div className="h-full p-6">
+            <NotePad patientId={selectedPatient.id} />
+          </div>
+        )}
+      </div>
+
       {selectedPatient && (
         <button
           onClick={() => setShowNotes(!showNotes)}
-          className="fixed top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+          className="fixed top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 hover:cursor-pointer z-50"
         >
           {showNotes ? "Close Notes" : "Open Notes"}
         </button>
