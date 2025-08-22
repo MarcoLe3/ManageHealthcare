@@ -8,7 +8,7 @@ module.exports = {
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
-        instrument: ['Instrument Inter', 'sans-serif'],
+        instrument: ['"Instrument Sans"', 'sans-serif'],
       },
     },
   },
