@@ -44,15 +44,15 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
             <div
               className={`px-4 py-2 rounded-lg max-w-[70%] font-instrument ${
                 msg.sender === "me"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-700 text-white"
+                  ? "bg-[#1E6EF4] text-white"
+                  : "bg-[#3A3A3C] text-white"
               }`}
                 draggable={msg.sender === "patient"}
                 onDragStart={(e) => {
                 const bubbleClasses =
                   msg.sender === "me"
-                    ? "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-blue-500 text-white"
-                    : "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-gray-700 text-white";
+                    ? "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-[#1E6EF4] text-white"
+                    : "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-[#3A3A3C] text-white";
 
                 const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
 
@@ -71,7 +71,7 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
       <div className="p-4">
         <input
           type="text"
-          className="w-full p-3 rounded-full border border-[#aeaeb2] focus:outline-none font-instrument text-gray-400"
+          className="w-full p-3 rounded-full border border-[#3A3A3C] focus:outline-none font-instrument text-white"
           placeholder="Type Message"
           value={input}
           onChange={(e) => setInput(e.target.value)}

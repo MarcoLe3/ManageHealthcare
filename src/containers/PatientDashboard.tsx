@@ -32,7 +32,7 @@ const PatientDashboard: React.FC = () => {
             }}
             className={`
              
-              ${selectedPatient?.id === patient.id ? "bg-[#3A3A3C] rounded-lg" : "" }
+              ${selectedPatient?.id === patient.id ? "bg-[#3A3A3C] rounded-lg scale-93 " : "" }
             `}
           />
         ))}
@@ -66,10 +66,15 @@ const PatientDashboard: React.FC = () => {
       {selectedPatient && (
         <button
           onClick={() => setShowNotes(!showNotes)}
-          className="fixed top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 z-50"
+          className="fixed top-4 right-4 px-2 py-2 rounded-lg hover:bg-[#48484A] hover:cursor-pointer z-50"
         >
-          {showNotes ? "Close Notes" : "Open Notes"}
+          {showNotes ? (
+            <img src="/note_icon.png" alt="Close Notes" className="w-6 h-6" />
+          ) : (
+            <img src="/note_icon.png" alt="Open Notes" className="w-6 h-6" />
+          )}
         </button>
+
       )}
     </div>
   );
