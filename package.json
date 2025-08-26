@@ -13,10 +13,12 @@
     "@fontsource/inter": "^5.2.6",
     "@fontsource/open-sans": "^5.2.6",
     "@react-pdf-viewer/core": "^3.12.0",
-    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf-viewer/page-navigation": "^3.12.0",
+    "pdfjs-dist": "^3.11.174",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.8.1"
+    "react-router-dom": "^7.8.1",
+    "react-swipeable": "^7.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

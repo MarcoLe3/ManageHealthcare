@@ -18,7 +18,6 @@ const PatientDashboard: React.FC = () => {
 
   return (
     <div className="flex w-full h-screen relative bg-[#1c1c1e]">
-      {/* Left panel */}
       <div className="flex flex-col w-1/5 bg-[#242426] rounded-lg overflow-hidden">
         <h2 className="text-3xl font-semibold font-sans mb-6 text-white px-4 pt-4">
           Patients
@@ -31,15 +30,17 @@ const PatientDashboard: React.FC = () => {
               setSelectedPatient(patient);
               setShowNotes(false);
             }}
-            className="border-b border-gray-600 last:border-b-0 hover:bg-gray-700 cursor-pointer"
+            className={`
+             
+              ${selectedPatient?.id === patient.id ? "bg-[#3A3A3C] rounded-lg" : "" }
+            `}
           />
         ))}
       </div>
 
-      {/* Chat panel */}
       <div
         className={`flex flex-col transition-all duration-300 ${
-          showNotes ? "w-2/5" : "w-2/3"
+          showNotes ? "w-14/30" : "w-7/9"
         }`}
       >
         {selectedPatient && (
@@ -54,16 +55,14 @@ const PatientDashboard: React.FC = () => {
         )}
       </div>
 
-      {/* Notes panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-1/3 bg-[#1f1f21] transform transition-transform duration-300 ease-in-out z-40 ${
+        className={`fixed top-0 right-0 h-full w-1/3 transform transition-transform duration-300 ease-in-out z-40 ${
           showNotes ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {selectedPatient && <NotePad patientId={selectedPatient.id} />}
       </div>
 
-      {/* Notes button */}
       {selectedPatient && (
         <button
           onClick={() => setShowNotes(!showNotes)}

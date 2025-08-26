@@ -19,3 +19,11 @@
   font-weight: 700;
   font-style: normal;
 }
+
+.rpv-core__viewer {
+  @apply bg-transparent;
+}
+
+.rpv-core__inner-viewer {
+  @apply bg-transparent;
+}

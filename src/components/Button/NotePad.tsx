@@ -8,7 +8,7 @@ interface Props {
 
 const NotePad: React.FC<Props> = ({ patientId }) => {
   return (
-    <div className="flex flex-col h-full p-4 bg-gray-black rounded-lg">
+    <div className="flex flex-col h-full p-4 bg-[#242426] rounded-lg">
       <RecordCard />
       <NoteCard />
     </div>

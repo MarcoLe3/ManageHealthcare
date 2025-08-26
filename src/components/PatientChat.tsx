@@ -47,8 +47,18 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
                   ? "bg-blue-500 text-white"
                   : "bg-gray-700 text-white"
               }`}
-              draggable={msg.sender === "patient"} // only patient messages draggable
-              onDragStart={(e) => e.dataTransfer.setData("text/plain", msg.text)}
+                draggable={msg.sender === "patient"}
+                onDragStart={(e) => {
+                const bubbleClasses =
+                  msg.sender === "me"
+                    ? "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-blue-500 text-white"
+                    : "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-gray-700 text-white";
+
+                const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
+
+                e.dataTransfer.setData("text/html", bubbleHTML);
+                e.dataTransfer.setData("text/plain", msg.text);
+              }}
             >
               {msg.text}
             </div>

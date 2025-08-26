@@ -4,12 +4,13 @@ import { Patient } from "../types/patient";
 interface Props {
   patient: Patient;
   onClick?: () => void;
+  className?: string;
 }
 
-const PatientCard: React.FC<Props> = ({ patient, onClick }) => {
+const PatientCard: React.FC<Props> = ({ patient, onClick, className }) => {
   return (
     <div
-      className="p-4 cursor-pointer font-inter flex items-center gap-4"
+      className={`p-4 cursor-pointer font-inter flex items-center gap-4 ${className ?? ""}`}
       onClick={onClick}
     >
       <img

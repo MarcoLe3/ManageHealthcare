@@ -5,31 +5,33 @@ const NoteCard: React.FC = () => {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    const html = e.dataTransfer.getData("text/html");
     const text = e.dataTransfer.getData("text/plain");
-    if (text) setNotes((prev) => [...prev, text]);
+
+    if (html) setNotes((prev) => [...prev, html]);
+    else if (text) {
+      const fallbackBubble = `<div class="px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-gray-700 text-white">${text}</div>`;
+      setNotes((prev) => [...prev, fallbackBubble]);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault(); // required to allow drop
+    e.preventDefault();
   };
 
   return (
-    <div
-      className="p-4 w-full max-w-md bg-white rounded-lg shadow-lg min-h-[200px]"
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-    >
-      <h2 className="font-bold mb-2">Notes</h2>
-      {notes.length === 0 && <p>Drag messages here</p>}
-      <ul className="space-y-1">
+    <div className="w-full max-w-3xl mx-auto p-4 flex flex-col gap-4" onDrop={handleDrop} onDragOver={handleDragOver}>
+      <div className="flex items-center gap-2">
+        <h2 className="text-xl font-semibold text-white">Notes</h2>
+      </div>
+
+      <ul className="space-y-2">
         {notes.map((note, i) => (
-          <li key={i} className="border p-2 rounded">{note}</li>
+          <li key={i} className="p-2" dangerouslySetInnerHTML={{ __html: note }} />
         ))}
       </ul>
-      <textarea
-        className="mt-2 w-full p-2 border rounded resize-none"
-        placeholder="Write your own notes..."
-      />
+
+      <textarea className="mt-2 w-full p-2 text-white resize-none caret-3 caret-yellow-500" />
     </div>
   );
 };
