@@ -6,6 +6,6 @@ export interface Patient {
   weight: number;
   height: number;
   notes?: string;
-  "history conditions"?: string[];
-  "past medication subscribe"?: string[];
+  historyConditions?: string[];
+  pastMedications?: string[];
 }

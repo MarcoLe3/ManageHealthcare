@@ -23,7 +23,7 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
 
   useEffect(() => {
     if (!socket) {
-      socket = io({path: "api/socketio"});
+      socket = io({path: "/api/socketio"});
     };
 
     socket.on("message", (msg: Message) => {
