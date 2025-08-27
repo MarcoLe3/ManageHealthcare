@@ -82,7 +82,6 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
         <div ref={chatEndRef} />
       </div>
 
-      {/* Input */}
       <div className="p-4">
         <input
           type="text"
