@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import PatientDashboard from "./containers/PatientDashboard";
-import PatientDetails from "./components/PatientChat";
-import { Patient } from "./types/patient";
+import PatientDashboard from "../containers/PatientDashboard";
+import PatientDetails from "../components/PatientChat";
+import { Patient } from "../types/patient";
 
 const App: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
