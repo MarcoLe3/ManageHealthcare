@@ -12,8 +12,8 @@ interface Message {
 
 const PatientChat: React.FC<Props> = ({ patient }) => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hello! How are you feeling today?", sender: "patient" },
-    { text: "I'm feeling better, thank you.", sender: "me" },
+    { text: "Mr Stark i dont feel so good", sender: "patient" },
+    { text: "u got me :)", sender: "me" },
   ]);
   const [input, setInput] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);

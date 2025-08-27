@@ -69,9 +69,9 @@ const PatientDashboard: React.FC = () => {
           className="fixed top-4 right-4 px-2 py-2 rounded-lg hover:bg-[#48484A] hover:cursor-pointer z-50"
         >
           {showNotes ? (
-            <img src="/note_icon.png" alt="Close Notes" className="w-6 h-6" />
+            <img src="/note_icon.png" alt="Close Notes" className="w-5 h-5" />
           ) : (
-            <img src="/note_icon.png" alt="Open Notes" className="w-6 h-6" />
+            <img src="/note_icon.png" alt="Open Notes" className="w-5 h-5" />
           )}
         </button>
 
