@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Patient } from "../types/patient";
+import { io, Socket } from "socket.io-client";
+
+let socket: Socket;
 
 interface Props {
   patient: Patient;
@@ -19,12 +22,25 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (!socket) {
+      socket = io({path: "api/socketio"});
+    };
+
+    socket.on("message", (msg: Message) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.off("message");
+    };
+  }, []);
 
   const sendMessage = () => {
     if (input.trim() === "") return;
-    setMessages((prev) => [...prev, { text: input, sender: "me" }]);
+    const newMsg: Message = { text: input, sender: "me" };
+    setMessages((prev) => [...prev, newMsg]);
+
+    socket.emit("message", newMsg);
     setInput("");
   };
 
@@ -34,7 +50,6 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
 
   return (
     <div className="flex flex-col h-full font-instrument">
-      {/* Messages */}
       <div className="flex-1 p-4 overflow-y-auto space-y-2">
         {messages.map((msg, index) => (
           <div
