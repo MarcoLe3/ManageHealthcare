@@ -3,6 +3,7 @@ import { Patient } from "../types/patient";
 import PatientCard from "../components/Patient";
 import PatientChat from "../components/PatientChat";
 import NotePad from "../components/Button/NotePad";
+import NoteButton from "../components/Button/NoteButton"
 
 const PatientDashboard: React.FC = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -10,10 +11,17 @@ const PatientDashboard: React.FC = () => {
   const [showNotes, setShowNotes] = useState(false);
 
   useEffect(() => {
-    fetch("/dummy.json")
-      .then((res) => res.json())
-      .then((data) => setPatients(data))
-      .catch(console.error);
+    const fetchPatients = async () => {
+      try {
+        const res = await fetch("/dummy.json");
+        const data = await res.json();
+        setPatients(data);
+      } catch(error) {
+        console.log(error)
+      }
+    }
+
+    fetchPatients();
   }, []);
 
   return (
@@ -32,7 +40,7 @@ const PatientDashboard: React.FC = () => {
             }}
             className={`
              
-              ${selectedPatient?.id === patient.id ? "bg-[#3A3A3C] rounded-lg scale-93 " : "" }
+              ${selectedPatient?.id === patient.id ? "bg-[#3A3A3C] rounded-lg scale-95 " : "" }
             `}
           />
         ))}
@@ -40,7 +48,7 @@ const PatientDashboard: React.FC = () => {
 
       <div
         className={`flex flex-col transition-all duration-300 ${
-          showNotes ? "w-14/30" : "w-7/9"
+          showNotes ? "w-14/30" : "w-2/3"
         }`}
       >
         {selectedPatient && (
@@ -63,18 +71,7 @@ const PatientDashboard: React.FC = () => {
         {selectedPatient && <NotePad patientId={selectedPatient.id} />}
       </div>
 
-      {selectedPatient && (
-        <button
-          onClick={() => setShowNotes(!showNotes)}
-          className="fixed top-4 right-4 px-2 py-2 rounded-lg hover:bg-[#48484A] hover:cursor-pointer z-50"
-        >
-          {showNotes ? (
-            <img src="/note_icon.png" alt="Close Notes" className="w-5 h-5" />
-          ) : (
-            <img src="/note_icon.png" alt="Open Notes" className="w-5 h-5" />
-          )}
-        </button>
-
+      {selectedPatient && ( <NoteButton onClick={() => setShowNotes(!showNotes)}/>
       )}
     </div>
   );
