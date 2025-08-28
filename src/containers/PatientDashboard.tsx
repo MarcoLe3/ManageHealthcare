@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Patient } from "../types/patient";
-import PatientCard from "../components/Patient";
+import PatientCard from "../components/PatientUser";
 import PatientChat from "../components/PatientChat";
 import NotePad from "../components/Button/NotePad";
 import NoteButton from "../components/Button/NoteButton"
