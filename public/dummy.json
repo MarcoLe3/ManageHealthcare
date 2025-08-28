@@ -7,7 +7,7 @@
     "weight": 180,
     "height": 70,
     "notes": "Complain of fatigue and dizziness.",
-    "history conditions": ["Diabetes", "Hypertension"],
+    "historyConditions": ["Diabetes", "Hypertension"],
     "pastMedications": ["Metformin", "Lisinopril"]
   },
   {
@@ -17,7 +17,8 @@
     "gender": "Male",
     "weight": 180,
     "height": 70,
-    "history conditions": ["Diabetes", "Hypertension"],
-    "past medication subscribe": ["Metformin", "Lisinopril"]
+    "notes": "Complain of fatigue and dizziness.",
+    "historyConditions": ["Diabetes", "Hypertension"],
+    "pastMedications": ["Metformin", "Lisinopril"]
   }
 ]

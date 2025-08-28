@@ -38,19 +38,21 @@ const RecordCard = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 flex flex-col gap-4">
-      <div className="flex items-center gap-2">
-        <h2 className="text-xl font-semibold text-white">Document</h2>
-        <label className="cursor-pointer flex items-center gap-2 text-white px-4 py-2 font-semibold">
-          Upload PDF
-          <input
-            type="file"
-            accept="application/pdf"
-            multiple
-            hidden
-            onChange={handleUpload}
-          />
-        </label>
-      </div>
+      <div className="flex flex-col gap-2">
+      <h2 className="text-xl font-semibold text-white">Document</h2>
+
+      <label className="cursor-pointer flex items-center gap-2 rounded-lg hover:bg-[#48484A] text-white px-4 py-2 font-semibold">
+        <img src="/plus.png" className="w-4 h-4" alt="" />
+        Upload PDF
+        <input
+          type="file"
+          accept="application/pdf"
+          multiple
+          hidden
+          onChange={handleUpload}
+        />
+      </label>
+    </div>
 
       {pdfs.length > 0 && (
         <div className="w-full h-[500px] overflow-hidden">

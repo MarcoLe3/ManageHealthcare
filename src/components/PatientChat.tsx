@@ -66,8 +66,8 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
                 onDragStart={(e) => {
                 const bubbleClasses =
                   msg.sender === "me"
-                    ? "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-[#1E6EF4] text-white"
-                    : "px-4 py-2 rounded-lg max-w-[70%] font-instrument bg-[#3A3A3C] text-white";
+                    ? "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#1E6EF4] text-white"
+                    : "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#3A3A3C] text-white";
 
                 const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
 

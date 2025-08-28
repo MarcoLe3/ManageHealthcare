@@ -31,7 +31,15 @@ const NoteCard: React.FC = () => {
         ))}
       </ul>
 
-      <textarea className="mt-2 w-full p-2 text-white resize-none caret-3 caret-yellow-500" />
+      <textarea
+          className="mt-2 w-full p-2 text-white focus:outline-none resize-none overflow-hidden caret-yellow-500"
+          placeholder="Your notes"
+          onChange={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = "0px";
+            target.style.height = target.scrollHeight + "px";
+          }}
+        />
     </div>
   );
 };
