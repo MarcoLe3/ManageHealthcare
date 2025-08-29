@@ -28,7 +28,7 @@ const PatientDashboard: React.FC = () => {
     <div className="flex w-full h-screen relative bg-[#1c1c1e]">
       <div className="flex flex-col w-1/5 bg-[#242426] rounded-lg overflow-hidden">
         <h2 className="text-3xl font-semibold font-sans mb-6 text-white px-4 pt-4">
-          Patients
+          Contacts
         </h2>
         {patients.map((patient) => (
           <PatientCard
