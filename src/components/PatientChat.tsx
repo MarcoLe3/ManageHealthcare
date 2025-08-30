@@ -20,6 +20,7 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   ]);
   const [input, setInput] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const file = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!socket) {
@@ -36,7 +37,20 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   }, []);
 
   const uploadFile = () => {
-    
+    file.current?.click()
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
+    // need to access file to fucking show in input form
+    const filesArray = Array.from(e.target.files);
+    filesArray.forEach((file) => {
+      console.log(file.name,file.type,file.size);
+    }
+    )
+
+    e.target.value = ""
   }
 
   const sendMessage = () => {
@@ -54,7 +68,6 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
 
   return (
   <div className="flex flex-col h-auto font-instrument">
-    {/* Messages (scrollable) */}
     <div className="flex-1 overflow-y-auto p-4 space-y-2">
       {messages.map((msg, index) => (
         <div
@@ -98,11 +111,20 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyPress}
       />
+     {/* this shit allows users to upload img pdfs to send thru message */}
       <button 
         className="p-3 bg-[#2C2C2E] hover:cursor-pointer rounded-full flex items-center justify-center"
         onClick={uploadFile}>
         <img className="w-4 h-4" src="/plus.png" alt="upload" />
       </button>
+      <input 
+        type= "file" 
+        ref={file} 
+        className="hidden"
+        multiple
+        accept="image/*,.pdf">
+        onChange = {handleFileChange}
+      </input>
     </div>
   </div>
 );
