@@ -20,6 +20,7 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   ]);
   const [input, setInput] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const file = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!socket) {
@@ -35,6 +36,23 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
     };
   }, []);
 
+  const uploadFile = () => {
+    file.current?.click()
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
+    // need to access file to fucking show in input form
+    const filesArray = Array.from(e.target.files);
+    filesArray.forEach((file) => {
+      console.log(file.name,file.type,file.size);
+    }
+    )
+
+    e.target.value = ""
+  }
+
   const sendMessage = () => {
     if (input.trim() === "") return;
     const newMsg: Message = { text: input, sender: "me" };
@@ -49,51 +67,67 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   };
 
   return (
-    <div className="flex flex-col h-full font-instrument">
-      <div className="flex-1 p-4 overflow-y-auto space-y-2">
-        {messages.map((msg, index) => (
+  <div className="flex flex-col h-auto font-instrument">
+    <div className="flex-1 overflow-y-auto p-4 space-y-2">
+      {messages.map((msg, index) => (
+        <div
+          key={index}
+          className={`flex ${
+            msg.sender === "me" ? "justify-end" : "justify-start"
+          }`}
+        >
           <div
-            key={index}
-            className={`flex ${msg.sender === "me" ? "justify-end" : "justify-start"}`}
-          >
-            <div
-              className={`px-4 py-2 rounded-lg max-w-[70%] font-instrument ${
+            className={`px-4 py-2 rounded-lg max-w-[70%] font-instrument ${
+              msg.sender === "me"
+                ? "bg-[#1E6EF4] text-white"
+                : "bg-[#3A3A3C] text-white"
+            }`}
+            draggable={msg.sender === "patient"}
+            onDragStart={(e) => {
+              const bubbleClasses =
                 msg.sender === "me"
-                  ? "bg-[#1E6EF4] text-white"
-                  : "bg-[#3A3A3C] text-white"
-              }`}
-                draggable={msg.sender === "patient"}
-                onDragStart={(e) => {
-                const bubbleClasses =
-                  msg.sender === "me"
-                    ? "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#1E6EF4] text-white"
-                    : "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#3A3A3C] text-white";
+                  ? "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#1E6EF4] text-white"
+                  : "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#3A3A3C] text-white";
 
-                const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
+              const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
 
-                e.dataTransfer.setData("text/html", bubbleHTML);
-                e.dataTransfer.setData("text/plain", msg.text);
-              }}
-            >
-              {msg.text}
-            </div>
+              e.dataTransfer.setData("text/html", bubbleHTML);
+              e.dataTransfer.setData("text/plain", msg.text);
+            }}
+          >
+            {msg.text}
           </div>
-        ))}
-        <div ref={chatEndRef} />
-      </div>
-
-      <div className="p-4">
-        <input
-          type="text"
-          className="w-full p-3 rounded-full border border-[#3A3A3C] focus:outline-none font-instrument text-white"
-          placeholder="Type Message"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-      </div>
+        </div>
+      ))}
+      <div ref={chatEndRef} />
     </div>
-  );
+
+    <div className="p-4 flex items-center gap-2">
+      <input
+        type="text"
+        className="flex-1 p-3 rounded-full border border-[#3A3A3C] focus:outline-none font-instrument text-white bg-[#2C2C2E]"
+        placeholder="Type Message"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyPress}
+      />
+     {/* this shit allows users to upload img pdfs to send thru message */}
+      <button 
+        className="p-3 bg-[#2C2C2E] hover:cursor-pointer rounded-full flex items-center justify-center"
+        onClick={uploadFile}>
+        <img className="w-4 h-4" src="/plus.png" alt="upload" />
+      </button>
+      <input 
+        type= "file" 
+        ref={file} 
+        className="hidden"
+        multiple
+        accept="image/*,.pdf">
+        onChange = {handleFileChange}
+      </input>
+    </div>
+  </div>
+);
 };
 
 export default PatientChat;

@@ -19,22 +19,24 @@ const RecordCard = () => {
     if (pdfs.length === 0) setCurrentIndex(0);
   };
 
-  const handleRemove = () => {
-    const updated = pdfs.filter((_, i) => i !== currentIndex);
-    setPdfs(updated);
-    if (currentIndex >= updated.length) {
-      setCurrentIndex(Math.max(0, updated.length - 1));
-    }
-  };
+  
 
-  const handleNext = () => {
-    if (pdfs.length > 1) setCurrentIndex((prev) => (prev + 1) % pdfs.length);
-  };
+  // const handleRemove = () => {
+  //   const updated = pdfs.filter((_, i) => i !== currentIndex);
+  //   setPdfs(updated);
+  //   if (currentIndex >= updated.length) {
+  //     setCurrentIndex(Math.max(0, updated.length - 1));
+  //   }
+  // };
 
-  const handlePrev = () => {
-    if (pdfs.length > 1)
-      setCurrentIndex((prev) => (prev - 1 + pdfs.length) % pdfs.length);
-  };
+  // const handleNext = () => {
+  //   if (pdfs.length > 1) setCurrentIndex((prev) => (prev + 1) % pdfs.length);
+  // };
+
+  // const handlePrev = () => {
+  //   if (pdfs.length > 1)
+  //     setCurrentIndex((prev) => (prev - 1 + pdfs.length) % pdfs.length);
+  // };
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 flex flex-col gap-4">
