@@ -118,13 +118,13 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
         <img className="w-4 h-4" src="/plus.png" alt="upload" />
       </button>
       <input 
-        type= "file" 
+        type="file" 
         ref={file} 
         className="hidden"
         multiple
-        accept="image/*,.pdf">
-        onChange = {handleFileChange}
-      </input>
+        accept="image/*,.pdf"
+        onChange={handleFileChange}
+      />
     </div>
   </div>
 );
