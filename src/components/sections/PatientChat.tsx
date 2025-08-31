@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Patient } from "../types/patient";
+import { Patient } from "../../types/patient";
 import { io, Socket } from "socket.io-client";
 
 let socket: Socket;

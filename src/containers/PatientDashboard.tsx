@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Patient } from "../types/patient";
-import PatientCard from "../components/PatientUser";
-import PatientChat from "../components/PatientChat";
-import NotePad from "../components/Button/NotePad";
+import PatientCard from "../components/sections/PatientUser";
+import PatientChat from "../components/sections/PatientChat";
+import NotePad from "../components/sections/NotePad";
 import NoteButton from "../components/Button/NoteButton"
 
 const PatientDashboard: React.FC = () => {
