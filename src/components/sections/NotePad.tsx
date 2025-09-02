@@ -11,8 +11,8 @@ const NotePad: React.FC<Props> = ({ patientId }) => {
   return (
     <div className="flex flex-col h-full p-4 bg-[#242426] rounded-lg">
       < SummaryAi/>
-      {/* <RecordCard />
-      <NoteCard /> */}
+      <RecordCard />
+      {/* <NoteCard /> */}
     </div>
   );
 };

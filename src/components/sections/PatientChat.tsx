@@ -9,7 +9,10 @@ interface Props {
 }
 
 interface Message {
-  text: string;
+  text?: string;
+  fileUrl?: string;
+  fileName?: string;
+  fileType?: string;
   sender: "me" | "patient";
 }
 
@@ -41,17 +44,26 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+  if (!e.target.files) return;
 
-    // need to access file to fucking show in input form
-    const filesArray = Array.from(e.target.files);
-    filesArray.forEach((file) => {
-      console.log(file.name,file.type,file.size);
-    }
-    )
+  const filesArray = Array.from(e.target.files);
 
-    e.target.value = ""
-  }
+  filesArray.forEach((file) => {
+    const fileUrl = URL.createObjectURL(file);
+
+    const newMsg: Message = {
+      fileUrl,
+      fileName: file.name,
+      fileType: file.type,
+      sender: "me",
+    };
+
+    setMessages((prev) => [...prev, newMsg]);
+    socket.emit("message", newMsg);
+  });
+
+  e.target.value = "";
+};
 
   const sendMessage = () => {
     if (input.trim() === "") return;
@@ -72,9 +84,7 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
       {messages.map((msg, index) => (
         <div
           key={index}
-          className={`flex ${
-            msg.sender === "me" ? "justify-end" : "justify-start"
-          }`}
+          className={`flex ${msg.sender === "me" ? "justify-end" : "justify-start"}`}
         >
           <div
             className={`px-4 py-2 rounded-lg max-w-[70%] font-instrument ${
@@ -82,27 +92,34 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
                 ? "bg-[#1E6EF4] text-white"
                 : "bg-[#3A3A3C] text-white"
             }`}
-            draggable={msg.sender === "patient"}
-            onDragStart={(e) => {
-              const bubbleClasses =
-                msg.sender === "me"
-                  ? "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#1E6EF4] text-white"
-                  : "px-4 py-2 rounded-lg max-w-[40%] font-instrument bg-[#3A3A3C] text-white";
-
-              const bubbleHTML = `<div class="${bubbleClasses}">${msg.text}</div>`;
-
-              e.dataTransfer.setData("text/html", bubbleHTML);
-              e.dataTransfer.setData("text/plain", msg.text);
-            }}
           >
-            {msg.text}
+            {msg.text && <p>{msg.text}</p>}
+
+            {msg.fileUrl && msg.fileType?.startsWith("image/") && (
+              <img
+                src={msg.fileUrl}
+                alt={msg.fileName}
+                className="max-w-[200px] rounded-lg mt-2"
+              />
+            )}
+
+            {msg.fileUrl && msg.fileType === "application/pdf" && (
+              <a
+                href={msg.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline mt-2 block"
+              >
+                {msg.fileName}
+              </a>
+            )}
           </div>
         </div>
       ))}
       <div ref={chatEndRef} />
     </div>
 
-    <div className="p-4 flex items-center gap-2">
+    <div className="p-4 flex items-center gap-2 bg-[#1C1C1E]">
       <input
         type="text"
         className="flex-1 p-3 rounded-full border border-[#3A3A3C] focus:outline-none font-instrument text-white bg-[#2C2C2E]"
@@ -111,15 +128,15 @@ const PatientChat: React.FC<Props> = ({ patient }) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyPress}
       />
-     {/* this shit allows users to upload img pdfs to send thru message */}
-      <button 
+      <button
         className="p-3 bg-[#2C2C2E] hover:cursor-pointer rounded-full flex items-center justify-center"
-        onClick={uploadFile}>
+        onClick={uploadFile}
+      >
         <img className="w-4 h-4" src="/plus.png" alt="upload" />
       </button>
-      <input 
-        type="file" 
-        ref={file} 
+      <input
+        type="file"
+        ref={file}
         className="hidden"
         multiple
         accept="image/*,.pdf"
